@@ -1,0 +1,74 @@
+{
+  "name": "vs-ngrok",
+  "displayName": "VS NGROK",
+  "description": "Easily connect to your NGROK tunnel with custom domain",
+  "version": "0.1.0",
+  "publisher": "olliemahoney",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": ["Other"],
+  "keywords": ["ngrok", "tunnel", "localhost", "development"],
+  "icon": "icon.svg",
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vs-ngrok.connect",
+        "title": "NGROK: Connect Tunnel"
+      },
+      {
+        "command": "vs-ngrok.disconnect",
+        "title": "NGROK: Disconnect Tunnel"
+      },
+      {
+        "command": "vs-ngrok.showStatus",
+        "title": "NGROK: Show Status"
+      }
+    ],
+    "configuration": {
+      "title": "VS NGROK",
+      "properties": {
+        "vs-ngrok.domain": {
+          "type": "string",
+          "default": "",
+          "description": "Your NGROK custom domain (e.g., your-domain.ngrok.io)"
+        },
+        "vs-ngrok.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your NGROK API key",
+          "scope": "application"
+        },
+        "vs-ngrok.port": {
+          "type": "number",
+          "default": 3000,
+          "description": "Local port to tunnel (default: 3000)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "npm run esbuild-base -- --minify",
+    "watch": "npm run esbuild-base -- --sourcemap --watch",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^2.22.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olliemahoney/vs-ngrok"
+  },
+  "license": "MIT"
+}
